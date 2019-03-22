@@ -135,5 +135,5 @@ InverseMSequenceGenerator::InverseMSequenceGenerator(unsigned n):
 int InverseMSequenceGenerator::get()
 {
     square = !square;
-    return __super::get() ^ square;
+    return (__super::get() ^ square) * 2 - 1; // convert to -1 and 1.
 }

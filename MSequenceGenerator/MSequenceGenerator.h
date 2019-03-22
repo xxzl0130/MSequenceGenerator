@@ -42,6 +42,7 @@ protected:
  */
 class InverseMSequenceGenerator : public MSequenceGenerator
 {
+public:
     InverseMSequenceGenerator(unsigned int n = 2);
     virtual ~InverseMSequenceGenerator() = default;
 
