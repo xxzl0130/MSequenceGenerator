@@ -9,9 +9,9 @@ SequenceGenerator::SequenceGenerator(unsigned int n, unsigned coefficient, unsig
 
 int SequenceGenerator::get()
 {
-    auto t = data & coef;
     auto s = 0u;
-    while (t)    //bit sum
+    auto t = data & coef;
+    for (auto i = 0u; i < bits; ++i)
     {
         s ^= t & 1;
         t >>= 1;
@@ -111,19 +111,6 @@ MSequenceGenerator::MSequenceGenerator(unsigned n):
         coef = 0;
     }
     coef >>= 1;     // remove last 1.
-}
-
-int MSequenceGenerator::get()
-{
-    auto s = 0u;
-    auto t = data & coef;
-    for(auto i = 0u;i < bits;++i)
-    {
-        s ^= t & 1;
-        t >>= 1;
-    }
-    data = (data >> 1) | (s << (bits - 1));
-    return s;
 }
 
 InverseMSequenceGenerator::InverseMSequenceGenerator(unsigned n):

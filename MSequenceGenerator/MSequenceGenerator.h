@@ -31,9 +31,6 @@ public:
     MSequenceGenerator(unsigned int n = 2);
     virtual ~MSequenceGenerator() = default;
 
-    // Get next bit of m sequence
-    virtual int get() override;
-
 protected:
 };
 
