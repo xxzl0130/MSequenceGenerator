@@ -1,9 +1,9 @@
 #include "MSequenceGenerator.h"
 
-
-SequenceGenerator::SequenceGenerator(unsigned coefficient, unsigned seed):
+SequenceGenerator::SequenceGenerator(unsigned int n, unsigned coefficient, unsigned seed):
     coef(coefficient),
-    data(seed)
+    data(seed),
+    bits(n)
 {
 }
 
@@ -11,12 +11,12 @@ int SequenceGenerator::get()
 {
     auto t = data & coef;
     auto s = 0u;
-    while(t)    //bit sum
+    while (t)    //bit sum
     {
         s ^= t & 1;
         t >>= 1;
     }
-    data = (data << 1) | s;
+    data = (data >> 1) | (s << (bits - 1));
     return s;
 }
 
@@ -31,8 +31,7 @@ void SequenceGenerator::setCoefficient(unsigned c)
 }
 
 MSequenceGenerator::MSequenceGenerator(unsigned n):
-    SequenceGenerator(0,1),
-    bits(n)
+    SequenceGenerator(n,0,0x33333333)
 {
     switch (bits)
     {
@@ -111,6 +110,7 @@ MSequenceGenerator::MSequenceGenerator(unsigned n):
     default:
         coef = 0;
     }
+    coef >>= 1;     // remove last 1.
 }
 
 int MSequenceGenerator::get()
@@ -122,8 +122,8 @@ int MSequenceGenerator::get()
         s ^= t & 1;
         t >>= 1;
     }
-    data = (data << 1) | s;
-    return t;
+    data = (data >> 1) | (s << (bits - 1));
+    return s;
 }
 
 InverseMSequenceGenerator::InverseMSequenceGenerator(unsigned n):

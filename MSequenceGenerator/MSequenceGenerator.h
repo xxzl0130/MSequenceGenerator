@@ -6,7 +6,7 @@
 class SequenceGenerator
 {
 public:
-    SequenceGenerator(unsigned int coefficient = 07,unsigned int seed = 1);
+    SequenceGenerator(unsigned int n, unsigned int coefficient = 07,unsigned int seed = 1);
     virtual ~SequenceGenerator() = default;
 
     // Get next bit of sequence.
@@ -18,6 +18,7 @@ public:
 protected:
     unsigned int coef;      // Coefficient of Primitive polynomial.
     unsigned int data;      // Sequence data.
+    unsigned int bits;      // Cycle bits of sequence.
 };
 
 /**
@@ -34,7 +35,6 @@ public:
     virtual int get() override;
 
 protected:
-    unsigned int bits;      //Cycle bits of m sequence.
 };
 
 /**
